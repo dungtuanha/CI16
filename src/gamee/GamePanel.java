@@ -24,7 +24,7 @@ public class GamePanel extends JPanel {
         bulletImage = SpriteUtils.loadImage("assets/images/player-bullets/a/1.png");
         bulletPositions = new ArrayList<>();
         enemiesImage = SpriteUtils.loadImage("assets/images/enemies/level0/black/0.png");
-        enemyPosition = new Vector2D(100, 100);
+        enemyPosition = new Vector2D(0, 100);
     }
 
     @Override
@@ -86,15 +86,25 @@ public class GamePanel extends JPanel {
         enemyMove();
     }
 
+
+    boolean playerGoLeft = true;
+    boolean playerGoRight = true;
     private void enemyMove() {
-        if(enemyPosition.x == backgroundImage.getWidth()){
-                enemyPosition.add(-3,0);
-        } else {
-            enemyPosition.add(3,0);
+        if(enemyPosition.x == backgroundImage.getWidth()) {
+            playerGoRight = false;
+            playerGoLeft = true;
+        } else if(enemyPosition.x == 0){
+            playerGoLeft = false;
+            playerGoRight = true;
+        }
+
+        if (playerGoRight == true) {
+            enemyPosition.add(1, 0);
+        } else{
+            enemyPosition.add(-1,0);
         }
     }
 
-    // TODO: remove
     int frameCount;
     private void playerFire() {
         frameCount++;
