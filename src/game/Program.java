@@ -7,13 +7,12 @@ import java.awt.*;
 public class Program {
     public static void main(String[] args) {
         GameWindow window = new GameWindow();
-//        window.setSize(800, 600);
         window.setTitle("Game Touhou");
         window.setResizable(false);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         GamePanel panel = new GamePanel();
-        panel.setPreferredSize(new Dimension(800, 600));
+        panel.setPreferredSize(new Dimension(Settings.GAME_WIDTH, Settings.GAME_HEIGHT));
         panel.setBackground(Color.CYAN);
 
         window.add(panel);

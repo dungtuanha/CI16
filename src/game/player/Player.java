@@ -1,36 +1,36 @@
-package game;
+package game.player;
 
+import game.GameObject;
+import game.GameWindow;
+import game.Settings;
 import tklibs.SpriteUtils;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Set;
 
-public class Player {
-    BufferedImage image;
-    Vector2D position;
+public class Player extends GameObject {
     ArrayList<PlayerBullet> bullets;
 
     public Player() {
         image = SpriteUtils.loadImage("assets/images/players/straight/0.png");
-        position = new Vector2D(300, 500);
+//        position = new Vector2D(300, 500);
+        position.set(Settings.PLAYER_POSITION.x, Settings.PLAYER_POSITION.y);
         bullets = new ArrayList<>();
     }
 
+    @Override
     public void render(Graphics g) {
-        g.drawImage(
-                image,
-                (int) position.x,
-                (int) position.y,
-                null
-        );
+        super.render(g);
         for (int i = 0; i < bullets.size(); i++) {
             PlayerBullet bullet = bullets.get(i);
             bullet.render(g);
         }
     }
 
+    @Override
     public void run() {
+        super.run();
         move();
         limit();
         fire();
@@ -56,40 +56,41 @@ public class Player {
         if(position.x < 0) {
             position.set(0, position.y);
         }
-        if(position.x > 384 - image.getWidth()) {
+        if(position.x > Settings.BACKGROUND_WIDTH - image.getWidth()) {
             position.set(
-                    384 - image.getWidth(),
+                    Settings.BACKGROUND_WIDTH - image.getWidth(),
                     position.y
             );
         }
         if(position.y < 0) {
             position.set(position.x, 0);
         }
-        if(position.y > 600 - image.getHeight()) {
+        if(position.y > Settings.GAME_HEIGHT - image.getHeight()) {
             position.set(
                     position.x,
-                    600 - image.getHeight()
+                    Settings.GAME_HEIGHT - image.getHeight()
             );
         }
     }
 
     private void move() {
-        int playerSpeed = 3;
-        int vx = 0;
-        int vy = 0;
+        Settings.PLAYER_MOVE.set(0,0);
+
         if(GameWindow.isUpPress) {
-            vy -= playerSpeed;
+            Settings.PLAYER_MOVE.y -= Settings.PLAYER_SPEED;
         }
         if(GameWindow.isDownPress) {
-            vy += playerSpeed;
+            Settings.PLAYER_MOVE.y += Settings.PLAYER_SPEED;
         }
         if(GameWindow.isLeftPress) {
-            vx -= playerSpeed;
+            Settings.PLAYER_MOVE.x -= Settings.PLAYER_SPEED;
         }
         if(GameWindow.isRightPress) {
-            vx += playerSpeed;
+            Settings.PLAYER_MOVE.x += Settings.PLAYER_SPEED;
         }
-        position.add(vx, vy);
+//        position.add(vx, vy);
+        velocity.set(Settings.PLAYER_MOVE.x, Settings.PLAYER_MOVE.y);
+        velocity.setLength(Settings.PLAYER_SPEED);
     }
 
     private void bulletsRun() {

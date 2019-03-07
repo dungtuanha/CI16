@@ -5,26 +5,17 @@ import tklibs.SpriteUtils;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Background {
-    BufferedImage image;
-    Vector2D position;
+public class Background extends GameObject {
 
     public Background() {
         image = SpriteUtils.loadImage("assets/images/background/0.png");
-        position = new Vector2D(0, 600 - 3109);
+        position.set(0, Settings.GAME_HEIGHT - Settings.BACKGROUND_HEIGHT);
+        velocity.set(0, 10);
     }
 
-    public void render(Graphics g) {
-        g.drawImage(
-                image,
-                (int) position.x,
-                (int) position.y,
-                null
-        );
-    }
-
+    @Override
     public void run() {
-        position.add(0, 10);
+        super.run();
         if(position.y > 0) {
             position.set(position.x, 0);
         }

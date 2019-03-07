@@ -1,10 +1,10 @@
 package game;
 
-import tklibs.SpriteUtils;
+import game.enemy.Enemy;
+import game.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,6 +17,8 @@ public class GamePanel extends JPanel {
         player = new Player();
         background = new Background();
         enemies = new ArrayList<>();
+
+
     }
 
     public void gameLoop() {
