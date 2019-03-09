@@ -43,7 +43,6 @@ public class Player extends GameObject {
             for (int i = 0; i < 20; i++) {
                 PlayerBullet bullet = new PlayerBullet();
                 bullet.position.set(position.x, position.y);
-                bullet.velocity.setAngle(-Math.PI / 3 - i * (Math.PI / 60));
                 bullets.add(bullet);
             }
             fireCount = 0;
