@@ -5,31 +5,32 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class GameObject {
-    // Quản lí đối tượng
+    // Quan li doi tuong
     public static ArrayList<GameObject> objects = new ArrayList<>();
 
     // find
     public static <E extends GameObject> E find(Class<E> cls) {
-        // lướt qua mảng objects
-        // kiểm tra từng phần tử
-        // nếu phần tử thóa mãn >> return
+        // luot qua mang objects
+        // kiem tra tung phan tu
+        // neu phan tu thoa man >> return
         for (int i = 0; i < objects.size(); i++) {
             GameObject object = objects.get(i);
-            if (object.getClass().isAssignableFrom(cls)) {
+            if(object.getClass().isAssignableFrom(cls)) {
                 return (E) object;
             }
         }
         return null;
     }
 
-    // Định nghĩa đối tượng
+    // Dinh nghia doi tuong
     public BufferedImage image;
     public Vector2D position;
     public Vector2D velocity;
 
     public GameObject() {
-        position = new Vector2D();
-        velocity = new Vector2D();
+        objects.add(this);
+        this.position = new Vector2D();
+        this.velocity = new Vector2D();
     }
 
     public void render(Graphics g) {

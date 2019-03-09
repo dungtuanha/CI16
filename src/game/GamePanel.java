@@ -17,8 +17,6 @@ public class GamePanel extends JPanel {
         player = new Player();
         background = new Background();
         enemies = new ArrayList<>();
-
-
     }
 
     public void gameLoop() {

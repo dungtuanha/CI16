@@ -12,6 +12,11 @@ public class Vector2D {
         this(other.x, other.y);
     }
 
+    public Vector2D(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public void add(Vector2D other) {
         this.add(other.x, other.y);
     }
@@ -55,8 +60,9 @@ public class Vector2D {
     public void setLength(double length) {
         double currentLength = this.getLength();
         if(currentLength != 0) {
-            this.x = this.x * length / currentLength;
-            this.y = this.y * length / currentLength;
+            this.scale(length / currentLength);
+//            this.x = this.x * length / currentLength;
+//            this.y = this.y * length / currentLength;
         }
     }
 
@@ -80,10 +86,5 @@ public class Vector2D {
         System.out.println(v1.getLength() + " " + 5);
         v1.setAngle(Math.PI / 6);
         System.out.println(v1.getAngle() + " " + (Math.PI / 6));
-    }
-
-    public Vector2D(double x, double y) {
-        this.x = x;
-        this.y = y;
     }
 }

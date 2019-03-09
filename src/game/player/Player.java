@@ -7,15 +7,13 @@ import tklibs.SpriteUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Player extends GameObject {
     ArrayList<PlayerBullet> bullets;
 
     public Player() {
         image = SpriteUtils.loadImage("assets/images/players/straight/0.png");
-//        position = new Vector2D(300, 500);
-        position.set(Settings.PLAYER_POSITION.x, Settings.PLAYER_POSITION.y);
+        position.set(300, 500);
         bullets = new ArrayList<>();
     }
 
@@ -74,23 +72,23 @@ public class Player extends GameObject {
     }
 
     private void move() {
-        Settings.PLAYER_MOVE.set(0,0);
-
+        int playerSpeed = 3;
+        int vx = 0;
+        int vy = 0;
         if(GameWindow.isUpPress) {
-            Settings.PLAYER_MOVE.y -= Settings.PLAYER_SPEED;
+            vy -= playerSpeed;
         }
         if(GameWindow.isDownPress) {
-            Settings.PLAYER_MOVE.y += Settings.PLAYER_SPEED;
+            vy += playerSpeed;
         }
         if(GameWindow.isLeftPress) {
-            Settings.PLAYER_MOVE.x -= Settings.PLAYER_SPEED;
+            vx -= playerSpeed;
         }
         if(GameWindow.isRightPress) {
-            Settings.PLAYER_MOVE.x += Settings.PLAYER_SPEED;
+            vx += playerSpeed;
         }
-//        position.add(vx, vy);
-        velocity.set(Settings.PLAYER_MOVE.x, Settings.PLAYER_MOVE.y);
-        velocity.setLength(Settings.PLAYER_SPEED);
+        velocity.set(vx, vy);
+        velocity.setLength(playerSpeed);
     }
 
     private void bulletsRun() {
