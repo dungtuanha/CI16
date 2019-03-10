@@ -3,16 +3,18 @@ package game.enemy;
 import game.GameObject;
 import game.Settings;
 import game.Settings;
+import game.renderer.Renderer;
 import tklibs.SpriteUtils;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Enemy extends GameObject {
     ArrayList<EnemyBullet> enemyBullets;
 
     public Enemy() {
-        image = SpriteUtils.loadImage("assets/images/enemies/level0/blue/0.png");
+        renderer = new Renderer("assets/images/enemies/level0/blue");
         velocity.set(0, 3);
         enemyBullets = new ArrayList<>();
     }

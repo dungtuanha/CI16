@@ -3,27 +3,21 @@ package game.player;
 import game.GameObject;
 import game.GameWindow;
 import game.Settings;
+import game.renderer.Renderer;
 import tklibs.SpriteUtils;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Player extends GameObject {
-    ArrayList<PlayerBullet> bullets;
 
     public Player() {
-        image = SpriteUtils.loadImage("assets/images/players/straight/0.png");
+//        BufferedImage image = SpriteUtils.loadImage("assets/images/players/straight/0.png");
+//        renderer = new Renderer(image);
+        renderer = new Renderer("assets/images/players/straight");
         position.set(300, 500);
-        bullets = new ArrayList<>();
-    }
-
-    @Override
-    public void render(Graphics g) {
-        super.render(g);
-        for (int i = 0; i < bullets.size(); i++) {
-            PlayerBullet bullet = bullets.get(i);
-            bullet.render(g);
-        }
     }
 
     @Override
@@ -32,7 +26,6 @@ public class Player extends GameObject {
         move();
         limit();
         fire();
-        bulletsRun();
     }
 
     // TODO: remove fireCount
@@ -43,7 +36,6 @@ public class Player extends GameObject {
             for (int i = 0; i < 20; i++) {
                 PlayerBullet bullet = new PlayerBullet();
                 bullet.position.set(position.x, position.y);
-                bullets.add(bullet);
             }
             fireCount = 0;
         }
@@ -53,19 +45,19 @@ public class Player extends GameObject {
         if(position.x < 0) {
             position.set(0, position.y);
         }
-        if(position.x > Settings.BACKGROUND_WIDTH - image.getWidth()) {
+        if(position.x > Settings.BACKGROUND_WIDTH - Settings.PLAYER_WIDTH) {
             position.set(
-                    Settings.BACKGROUND_WIDTH - image.getWidth(),
+                    Settings.BACKGROUND_WIDTH - Settings.PLAYER_WIDTH,
                     position.y
             );
         }
         if(position.y < 0) {
             position.set(position.x, 0);
         }
-        if(position.y > Settings.GAME_HEIGHT - image.getHeight()) {
+        if(position.y > Settings.GAME_HEIGHT - Settings.PLAYER_HEIGHT) {
             position.set(
                     position.x,
-                    Settings.GAME_HEIGHT - image.getHeight()
+                    Settings.GAME_HEIGHT - Settings.PLAYER_HEIGHT
             );
         }
     }
@@ -90,10 +82,4 @@ public class Player extends GameObject {
         velocity.setLength(playerSpeed);
     }
 
-    private void bulletsRun() {
-        for (int i = 0; i < bullets.size(); i++) {
-            PlayerBullet bullet = bullets.get(i);
-            bullet.run();
-        }
-    }
 }
