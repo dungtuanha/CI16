@@ -33,8 +33,8 @@ public class Player extends GameObject {
     private void fire() {
         fireCount++;
         if(GameWindow.isFirePress && fireCount > 20) {
-            for (int i = 0; i < 20; i++) {
-                PlayerBullet bullet = new PlayerBullet();
+            for (int i = 0; i < 1; i++) {
+                PlayerBullet bullet = GameObject.recycle(PlayerBullet.class);
                 bullet.position.set(position.x, position.y);
             }
             fireCount = 0;

@@ -38,16 +38,16 @@ public class Renderer {
         if (image != null) {
             g.drawImage(
                     image,
-                    (int) master.position.x,
-                    (int) master.position.y,
+                    (int) (master.position.x - master.anchor.x * image.getWidth()),
+                    (int) (master.position.y - master.anchor.y * image.getHeight()),
                     null
             );
         } else if(images != null) {
             BufferedImage currentImage = images.get(currentIndex);
             g.drawImage(
                     currentImage,
-                    (int) master.position.x,
-                    (int) master.position.y,
+                    (int) (master.position.x - master.anchor.x * currentImage.getWidth()),
+                    (int) (master.position.y - master.anchor.y * currentImage.getHeight()),
                     null
             );
 

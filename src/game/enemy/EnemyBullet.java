@@ -22,5 +22,12 @@ public class EnemyBullet extends GameObject {
     @Override
     public void run() {
         super.run();
+        deactiveIfNeeded();
+    }
+
+    private void deactiveIfNeeded() {
+        if(this.position.y > Settings.GAME_HEIGHT +50){
+            this.deactive();
+        }
     }
 }

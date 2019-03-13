@@ -13,6 +13,7 @@ public class Background extends GameObject {
         renderer = new Renderer(image);
         position.set(0, Settings.GAME_HEIGHT - Settings.BACKGROUND_HEIGHT);
         velocity.set(0, 10);
+        anchor.set(0, 0);
     }
 
     @Override
