@@ -4,6 +4,7 @@ import game.GameObject;
 import game.Settings;
 import game.Settings;
 import game.physics.BoxCollider;
+import game.player.Player;
 import game.renderer.Renderer;
 import tklibs.SpriteUtils;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 public class Enemy extends GameObject {
     ArrayList<EnemyBullet> enemyBullets;
     int hp;
+    int damage;
 
     public Enemy() {
         renderer = new Renderer("assets/images/enemies/level0/blue");
@@ -22,6 +24,7 @@ public class Enemy extends GameObject {
         enemyBullets = new ArrayList<>();
         hitBox = new BoxCollider(this, 28, 28);
         hp = 3;
+        damage = 1;
     }
 
     static Font font = new Font("Verdana", Font.BOLD, 32);
@@ -48,6 +51,16 @@ public class Enemy extends GameObject {
         autoFire();
         bulletRun();
         deactiveIfNeeded();
+        checkIntersects();
+    }
+
+    public void checkIntersects() {
+        Player player = GameObject.findIntersects(Player.class
+                , this);
+        if(player != null) {
+            this.deactive();
+            player.takeDamage(damage);
+        }
     }
 
     private void deactiveIfNeeded() {

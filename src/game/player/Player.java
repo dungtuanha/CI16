@@ -3,6 +3,7 @@ package game.player;
 import game.GameObject;
 import game.GameWindow;
 import game.Settings;
+import game.physics.BoxCollider;
 import game.renderer.Renderer;
 import tklibs.SpriteUtils;
 
@@ -12,12 +13,27 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class Player extends GameObject {
+    int hp;
 
     public Player() {
 //        BufferedImage image = SpriteUtils.loadImage("assets/images/players/straight/0.png");
 //        renderer = new Renderer(image);
         renderer = new Renderer("assets/images/players/straight");
+        hitBox = new BoxCollider(this, 32, 28);
         position.set(300, 500);
+        hp = 100;
+    }
+
+    static Font font = new Font("Verdana", Font.BOLD, 32);
+    @Override
+    public void render(Graphics g) {
+        super.render(g);
+
+        g.setFont(font);
+        g.setColor(Color.GREEN);
+        g.drawString(hp + ""
+                , (int) position.x
+                , (int) position.y);
     }
 
     @Override
@@ -26,6 +42,10 @@ public class Player extends GameObject {
         move();
         limit();
         fire();
+    }
+
+    public void takeDamage(int damage){
+        hp -= damage;
     }
 
     // TODO: remove fireCount
